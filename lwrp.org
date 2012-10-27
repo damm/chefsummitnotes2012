@@ -1,0 +1,15 @@
+* LWRP Summit
+** Limitations
+Some of the limitations of LWRP were brought up.  The audiance appeared to be unaware not being able to use =include_recipe= or =require_recipe= or =values_for_platform=.
+*** Dependency Resolution
+It was suggested that it would be nice if we could either provide dependency resolution at the Resource level.  Such as.
+#+BEGIN_SRC ruby
+def initialize(*args)
+  super
+  @action = :install
+  @cookbook_context.depends ["build-essential","bob"]
+end
+#+END_SRC
+Unfortunately this would require the cookbook loader to essentially run twice.  
+*** Learning Curve
+Most people came to the talk hoping to learn how to write a LWRP.  Unfortunately as there was no Projector no code was shared.

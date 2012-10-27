@@ -1,0 +1,53 @@
+* Cucumber Chef 2.0
+#+BEGIN_QUOTE
+Book is still for 1.0, as he hasn't gotten the 2.0 book out.
+#+END_QUOTE
+
+*** Getting started with Cucumber Chef
+** Install Cucumber-chef
+#+BEGIN_SRC ruby
+gem install cucumber-chef
+#+END_SRC
+** Initialize cucumber-chef to configure everything
+#+BEGIN_SRC bash
+cucumber-chef init
+#+END_SRC
+It will ask you many questions fill in the answers.
+** Setup your cucumber-chef cluster.
+#+BEGIN_SRC bash
+cucumber-chef setup
+#+END_SRC
+Note this will take a few minutes to complete, once it's up the environment will be up.
+** Creating your first test
+#+BEGIN_SRC bash
+cucumber-chef create beer
+#+END_SRC
+features/beer/beer.feature is created with a basic definition
+features/beer/step\_features/beer\_steps.rb has all the steps
+
+
+Basic feature
+
+#+BEGIN_SRC ruby
+@hadoop
+
+Feature: Billing Data Analysis Engine
+  So that I can reduce waste caused by bad billing
+  As a suit on the 5th floor
+  I can read a report on how biling was wasteful in Q3
+
+  Background:
+  * I have a server called "hadoop"
+  * "hadoop" is running "ubuntu" "preicse"
+  * "hadoop" has been provisioned
+  * the following cookbooks have been uploaded:
+    | cookbook_path | summit-demo  |
+    | engine        | ./cookbooks  | 
+  * the "engine::default" recipe bas been added to the "hadoop" run list
+  * the chef-client has been run on "hadoop"
+
+  Scenario: Can generate a report
+    When I run a query against my billing engine
+    Then I get a csv contained data
+
+#+END_SRC

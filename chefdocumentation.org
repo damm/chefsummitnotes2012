@@ -1,0 +1,13 @@
+* New Chef Documentation
+[[http://wiki.opscode.com/display/chef/New+Chef+Documentation][New Chef Documentation Notes]]
+** Summary
+Documentation is a passable reference. Opscode goal is to create an excellent reference that also has a recognizable structure.
+*** [[http://docs.opscode.com][docs.opscode.com]] - is open
+Currently [[https://github.com/opscode/chef-docs][chef-docs]] is still private, it should be marked public soon.
+*** Now with Sphinx
+There's many different ways to have markup, Opscode has settled on Sphinx reStructuredText.
+*** Weekly Review
++ Just like they do with regular chef code.
++ No CCLA Requirement, it is under Creative Commons.
++ Potentially create a ticket, then fork the repo, create a topic branch, make changes... open pull request, follow same pattern.
++ Documentation will become a part of the regular pull process in time.

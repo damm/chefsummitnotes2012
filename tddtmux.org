@@ -1,0 +1,83 @@
+* tmux / TDD
+[[http://wiki.opscode.com/display/chef/Tdding+Tmux][Tdding Tmux]]
+[[http://wiki.opscode.com/display/chef/Tdding+Tmux][Tddign Tmux partial notes]] - Thanks for rberger posting these!
+#+BEGIN_QUOTE
+This session was dedicated to building Test Driven development behavior while creating a tmux cookbook.
+#+END_QUOTE
+The pattern used in [[https://github.com/calavera/rspec-chef][rspec-chef]] is a matcher.  All =resources= run with the =action= of *:nothing*.  It is more of a lint / matcher to ensure the logic is in the recipe.
+* Tools
+[[https://github.com/customink/fauxhai][fauxhai]] - Easily mock full ohai data.
+  + another problem with rspec-chef is that it does not run ohai.  So the resulting test runs will not have certain data such as =node['ec2']=.  This project was created as a work around.
+[[https://github.com/acrmp/chefspec][chefspec]] - another way to write rspec for chef.
+[[https://github.com/guard/guard][guard]] - watches your units (or files) for changes and will trigger runs automagically for you.
+[[https://github.com/customink/strainer][strainer]] - pattern for isolating and testing one or many cookbooks.
+#+BEGIN_SRC bash
+bundle exec strain tmux
+#+END_SRC
+  - it run the commands specified in .collandar\\
+  - Such as chefspec, foodcritic, knife cookbook test.\\
+*** Naming Convention
+Naming specs is done by the name of the recipe.  So if the recipe is called default, you will create default\_spec.rb.
+
+*** Getting Started
+
+Create a new cookbook
+1. Knife cookbook create tmux
+2. cd tmux; mkdir spec && touch spec/spec\_helper.rb
+
+#+BEGIN_SRC ruby spec/spec\_helper.rb
+require 'chefspec'
+require 'fauxhai'
+#+END_SRC
+
+#+BEGIN_SRC ruby spec/default\_spec.rb
+require 'spec\_helper'
+
+  describe 'tmux::default' do
+  let (:runner) { ChefSpec::ChefRunner.new.converge('tmux::default') }
+
+  it 'should install the tmux package' do
+    runner.should install\_package 'tmux'
+  end
+
+  it 'should create the tmux.conf file' do
+    runner.should create\_file 'etc/tmux.conf'
+  end
+end
+#+END_SRC
+
+This example should fail because it has no ohai data.
+
+Working example would be
+
+#+BEGIN_SRC ruby spec/default\_spec.rb
+require 'spec\_helper'
+
+  describe 'tmux::default' do
+  before { Fauxhai.mock(platform: 'ubuntu', version: '12.04') }
+  let (:runner) { ChefSpec::ChefRunner.new.converge('tmux::default') }
+
+  it 'should install the tmux package' do
+    runner.should install\_package 'tmux'
+  end
+
+  it 'should create the tmux.conf file' do
+    runner.should create\_file 'etc/tmux.conf'
+  end
+end
+#+END_SRC
+
+Example failure
+
+#+BEGIN_SRC bash
+bundle exec rspec cookbooks/tmux/spec/default_spec.rb
+spec ./cookbooks/tmux/spec/default.rb:7 # tmux::default should install the tmux package
+spec ./cookbooks/tmux/spe/default_spec:11 # tmux::default should create the tmux.conf file
+#+END_SRC
+
+
+*** Warnings
+Chefspec does not mock out all of ohai data.  Which is why fauxhai was created.
+#+BEGIN_QUOTE
+The above example will not test the template.  .create\_file will test if the file is created.  .create\_file\_with\_content '/etc/tmux.conf', 'foo' will test if the file has 'foo' in it.
+#+END_QUOTE

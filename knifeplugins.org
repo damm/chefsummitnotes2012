@@ -1,0 +1,5 @@
+* Knife Plugin Development
+** Griddle Provisioning
+Developer showed off his code and attempted to explain what he did.
+** shef is being renamed
+to chef-shell in chef 11

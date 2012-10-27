@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>tddtmux</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="tddtmux"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-10-26T18:13-0700"/>
+<meta name="author" content="Scott M. Likens"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">tddtmux</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 tmux / TDD</a></li>
+<li><a href="#sec-2">2 Tools</a>
+<ul>
+<li>
+<ul>
+<li><a href="#sec-2-1">2.1 Naming Convention</a></li>
+<li><a href="#sec-2-2">2.2 Getting Started</a></li>
+<li><a href="#sec-2-3">2.3 Warnings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> tmux / TDD</h2>
+<div class="outline-text-2" id="text-1">
+
+<p><a href="http://wiki.opscode.com/display/chef/Tdding+Tmux">Tdding Tmux</a>
+<a href="http://wiki.opscode.com/display/chef/Tdding+Tmux">Tddign Tmux partial notes</a> - Thanks for rberger posting these!
+</p><blockquote>
+
+<p>This session was dedicated to building Test Driven development behavior while creating a tmux cookbook.
+</p>
+</blockquote>
+
+
+<p>
+The pattern used in <a href="https://github.com/calavera/rspec-chef">rspec-chef</a> is a matcher.  All <code>resources</code> run with the <code>action</code> of <b>:nothing</b>.  It is more of a lint / matcher to ensure the logic is in the recipe.
+</p></div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Tools</h2>
+<div class="outline-text-2" id="text-2">
+
+<p><a href="https://github.com/customink/fauxhai">fauxhai</a> - Easily mock full ohai data.
+</p><ul>
+<li>another problem with rspec-chef is that it does not run ohai.  So the resulting test runs will not have certain data such as <code>node['ec2']</code>.  This project was created as a work around.
+</li>
+</ul>
+
+<p><a href="https://github.com/acrmp/chefspec">chefspec</a> - another way to write rspec for chef.
+<a href="https://github.com/guard/guard">guard</a> - watches your units (or files) for changes and will trigger runs automagically for you.
+<a href="https://github.com/customink/strainer">strainer</a> - pattern for isolating and testing one or many cookbooks.
+</p>
+
+
+<pre class="src src-bash">bundle exec strain tmux
+</pre>
+
+<ul>
+<li>it run the commands specified in .collandar<br/>
+</li>
+<li>Such as chefspec, foodcritic, knife cookbook test.<br/>
+</li>
+</ul>
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-4">
+<h4 id="sec-2-1"><span class="section-number-4">2.1</span> Naming Convention</h4>
+<div class="outline-text-4" id="text-2-1">
+
+<p>Naming specs is done by the name of the recipe.  So if the recipe is called default, you will create default_spec.rb.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-4">
+<h4 id="sec-2-2"><span class="section-number-4">2.2</span> Getting Started</h4>
+<div class="outline-text-4" id="text-2-2">
+
+
+<p>
+Create a new cookbook
+</p><ol>
+<li>Knife cookbook create tmux
+</li>
+<li>cd tmux; mkdir spec &amp;&amp; touch spec/spec_helper.rb
+</li>
+</ol>
+
+
+
+
+
+<pre class="src src-ruby">require <span style="color: #5c3566;">'chefspec'</span>
+require <span style="color: #5c3566;">'fauxhai'</span>
+</pre>
+
+
+
+<pre class="src src-ruby">require <span style="color: #5c3566;">'spec\_helper'</span>
+
+  describe <span style="color: #5c3566;">'tmux::default'</span> <span style="color: #346604;">do</span>
+  let (<span style="color: #204a87; font-weight: bold;">:runner</span>) { <span style="color: #204a87;">ChefSpec</span>::<span style="color: #204a87;">ChefRunner</span>.new.converge(<span style="color: #5c3566;">'tmux::default'</span>) }
+
+  it <span style="color: #5c3566;">'should install the tmux package'</span> <span style="color: #346604;">do</span>
+    runner.should install\_package <span style="color: #5c3566;">'tmux'</span>
+  <span style="color: #346604;">end</span>
+
+  it <span style="color: #5c3566;">'should create the tmux.conf file'</span> <span style="color: #346604;">do</span>
+    runner.should create\_file <span style="color: #5c3566;">'etc/tmux.conf'</span>
+  <span style="color: #346604;">end</span>
+<span style="color: #346604;">end</span>
+</pre>
+
+
+<p>
+This example should fail because it has no ohai data.
+</p>
+<p>
+Working example would be
+</p>
+
+
+
+<pre class="src src-ruby">require <span style="color: #5c3566;">'spec\_helper'</span>
+
+  describe <span style="color: #5c3566;">'tmux::default'</span> <span style="color: #346604;">do</span>
+  before { <span style="color: #204a87;">Fauxhai</span>.mock(platform: <span style="color: #5c3566;">'ubuntu'</span>, version: <span style="color: #5c3566;">'12.04'</span>) }
+  let (<span style="color: #204a87; font-weight: bold;">:runner</span>) { <span style="color: #204a87;">ChefSpec</span>::<span style="color: #204a87;">ChefRunner</span>.new.converge(<span style="color: #5c3566;">'tmux::default'</span>) }
+
+  it <span style="color: #5c3566;">'should install the tmux package'</span> <span style="color: #346604;">do</span>
+    runner.should install\_package <span style="color: #5c3566;">'tmux'</span>
+  <span style="color: #346604;">end</span>
+
+  it <span style="color: #5c3566;">'should create the tmux.conf file'</span> <span style="color: #346604;">do</span>
+    runner.should create\_file <span style="color: #5c3566;">'etc/tmux.conf'</span>
+  <span style="color: #346604;">end</span>
+<span style="color: #346604;">end</span>
+</pre>
+
+
+<p>
+Example failure
+</p>
+
+
+
+<pre class="src src-bash">bundle exec rspec cookbooks/tmux/spec/default_spec.rb
+spec ./cookbooks/tmux/spec/default.rb:7 # tmux::default should install the tmux package
+spec ./cookbooks/tmux/spe/default_spec:11 # tmux::default should create the tmux.conf file
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-4">
+<h4 id="sec-2-3"><span class="section-number-4">2.3</span> Warnings</h4>
+<div class="outline-text-4" id="text-2-3">
+
+<p>Chefspec does not mock out all of ohai data.  Which is why fauxhai was created.
+</p><blockquote>
+
+<p>The above example will not test the template.  .create_file will test if the file is created.  .create_file_with_content '/etc/tmux.conf', 'foo' will test if the file has 'foo' in it.
+</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-10-26T18:13-0700</p>
+<p class="author">Author: Scott M. Likens</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.8.11 with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
