@@ -1,0 +1,7 @@
+#+TITLE: Chef Summit Notes
+#+AUTHOR: Scott M. Likens
+#+EMAIL: smlikens at gmail dot com
+
+[[http://wiki.opscode.com/display/chef/Opscode+Community+Summit+2][Opscode Community Summit 2]]
+
+In this repository you can find some of the notes I collected while attending the Opscode Summit.
